@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+/* customizing Calendar View */
+.v-calendar .input-field input {
+    border-radius: none;
+    border:none;
+    height: 33px;
+    width: 221px;
+  }
+  .v-calendar .content {
+      top:31px
+  }
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

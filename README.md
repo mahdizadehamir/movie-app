@@ -1,4 +1,5 @@
-# movie-app
+# movie-app - Vuejs - VueRouter - Tailwindcss - Flowbite - DatePickerUi
+# Dont Forget To connet Your Vpn if You Live in Iran
 
 ## Project setup
 ```

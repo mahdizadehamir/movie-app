@@ -2,7 +2,7 @@
   <div class="home">
     <SearchBox @dateValue="dateValue" @searchMovies="searchMovies()" />
     <div
-      class="movieCardContainer mt-[119px] flex flex-wrap basis-4/12 justify-around max-w-[1024px] mx-auto "
+      class="movieCardContainer mt-[119px] flex flex-wrap basis-4/12 justify-around max-w-[1024px] mx-auto"
     >
       <MovieCard
         class="mb-[35px] last:mb-0"
@@ -45,7 +45,7 @@ export default {
     return {
       route: useRoute(),
       apiKey: "f62f750b70a8ef11dad44670cfb6aa57",
-      startDay: "2020-01-01",
+      startDay:"2020-01-01",
       endDay: "2021-01-01",
       movies: null,
       totalResultsCount: null,
@@ -53,7 +53,7 @@ export default {
       allGenres: [],
       page: localStorage.getItem("page") || 1,
       allPages: null,
-      pageCounter: localStorage.getItem("page"),
+      pageCounter: 0,
     };
   },
   methods: {
@@ -70,17 +70,23 @@ export default {
 
       if (this.startDay && this.endDay != "") {
         const response = await fetch(
-          `https://api.themoviedb.org/3/discover/movie?api_key=${this.apiKey}&language=en-US&primary_release_date.gte=${this.startDay}&primary_release_date.lte=${this.endDay}&page=${this.page}&sort_by=primary_release_date.asc`
-        ) .catch(err => { console.log (err.response.data)});
-        
+          `https://api.themoviedb.org/3/discover/movie?api_key=${this.apiKey}&language=en-US&primary_release_date.gte=${this.startDay}&primary_release_date.lte=${this.endDay}&page=${this.page}&sort_by=popularity.desc`
+        ).catch((err) => {
+          console.log(err.response.data);
+        });
+
         const data = await response.json();
         this.movies = data.results;
         this.totalResultsCount = data.total_results;
         this.pageResultsCount = data.results.length;
         this.allPages = data.total_pages;
         localStorage.setItem("page", this.page);
- 
-        
+        if (this.page == 1) {
+          return (this.pageCounter = 0);
+        } else {
+          this.pageCounter = this.page;
+        }
+        console.log(this.page,this.pageCounter)
       }
     },
     // fetching all Generes from API
@@ -110,9 +116,6 @@ export default {
       if (this.page > 1) {
         this.page--;
         this.searchMovies();
-      } else {
-        this.page = 500;
-        this.searchMovies();
       }
     },
   },
@@ -122,13 +125,17 @@ export default {
   },
   watch: {
     // watch for page Change for pass in pagination component
-     page() {
+    page() {
       if (this.page > 1) {
         this.pageCounter = this.page;
       } else {
         this.pageCounter = 0;
       }
     },
+    startDay(){
+      this.page = 1
+      
+    }
   },
 };
 </script>

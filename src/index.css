@@ -7,6 +7,9 @@
     height: 33px;
     width: 221px;
   }
+  .v-calendar .input-field input{
+      display: inline-block;
+  }
   .v-calendar .content {
       top:31px
   }

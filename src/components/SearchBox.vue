@@ -3,10 +3,10 @@
     class="font-roboto leading-tight searchBox mt-[69px] text-center rounded-md w-[1024px]  mx-auto bg-[#E2E2E2] box-border px-[81px] py-[33px]"
   >
     <form @submit.prevent="$emit('searchMovies',$event)" class="flex justify-between" action="">
-      <div class="self-center">
-        <label class="mr-[29px] inline-block">Search by release date: </label>
+      <div class="self-center flex justify-center ">
+        <label class="mr-[29px] w-[165px] inline-block self-center">Search by release date: </label>
         <DatePicker
-          class="inline-block w-[221px] h-[33px] rounded-none"
+          class="inline-block w-[221px] h-[33px] rounded-none self-center"
           lang="en"
           range
           v-model="selectedDate"
@@ -38,8 +38,8 @@ export default {
     return {
       selectedDate: [
         // default start date for DatePicker
-         new Date(localStorage.getItem("movieApp-StartDay") || "2020-01-01"), 
-        new Date(localStorage.getItem("movieApp-EndDay") || "2021-01-01" ),
+         new Date(localStorage.getItem("movieApp-StartDay") || "2021-01-01"), 
+        new Date(localStorage.getItem("movieApp-EndDay") || "2022-01-01" ),
       ],
     };
   },
